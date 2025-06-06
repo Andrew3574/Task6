@@ -1,0 +1,298 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "EditorAPI",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Presentations/GetByBatch/{batch}": {
+      "get": {
+        "tags": [
+          "Presentations"
+        ],
+        "parameters": [
+          {
+            "name": "batch",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Presentations/GetById/{id}": {
+      "get": {
+        "tags": [
+          "Presentations"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Presentations": {
+      "post": {
+        "tags": [
+          "Presentations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Presentations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Element": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "typeid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "sharedslideelements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sharedslideelement"
+            },
+            "nullable": true
+          },
+          "type": {
+            "$ref": "#/components/schemas/Elementtype"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Elementtype": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Element"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Presentation": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "author": {
+            "type": "string",
+            "nullable": true
+          },
+          "sharedpresentationslides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sharedpresentationslide"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sharedpresentationslide": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "presentationid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "slideid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "presentation": {
+            "$ref": "#/components/schemas/Presentation"
+          },
+          "slide": {
+            "$ref": "#/components/schemas/Slide"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Sharedslideelement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "slideid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementid": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementX": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementY": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementWidth": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementHeight": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "elementContent": {
+            "type": "string",
+            "nullable": true
+          },
+          "element": {
+            "$ref": "#/components/schemas/Element"
+          },
+          "slide": {
+            "$ref": "#/components/schemas/Slide"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Slide": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "background": {
+            "type": "string",
+            "nullable": true
+          },
+          "sharedpresentationslides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sharedpresentationslide"
+            },
+            "nullable": true
+          },
+          "sharedslideelements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sharedslideelement"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}

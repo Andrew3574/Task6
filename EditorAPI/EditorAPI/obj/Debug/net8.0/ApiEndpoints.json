@@ -1,0 +1,66 @@
+[
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "Post",
+    "RelativePath": "api/Presentations",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "presentation",
+        "Type": "Models.Presentation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "Delete",
+    "RelativePath": "api/Presentations",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "presentation",
+        "Type": "Models.Presentation",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "GetByBatch",
+    "RelativePath": "api/Presentations/GetByBatch/{batch}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "batch",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "GetById",
+    "RelativePath": "api/Presentations/GetById/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
