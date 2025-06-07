@@ -59,16 +59,7 @@
                             </div>
 
                             <div class="col-md-9">
-                                <div><strong>Contributors:</strong></div>
-                                <ul>
-                                    @if(item.Contributors != null)
-                                    {
-                                        foreach (var contributor in item.Contributors)
-                                        {
-                                            <li>@contributor</li>
-                                        }
-                                    }
-                                </ul>
+                                <div><strong>Number of slides: @item.Sharedpresentationslides.Count()</strong></div>
                             </div>
                         </div>
                     </td>

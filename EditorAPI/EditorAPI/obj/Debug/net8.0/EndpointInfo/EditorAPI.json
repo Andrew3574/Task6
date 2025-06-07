@@ -51,7 +51,7 @@
         }
       }
     },
-    "/api/Presentations": {
+    "/api/Presentations/Create": {
       "post": {
         "tags": [
           "Presentations"
@@ -80,7 +80,40 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Presentations/Update": {
+      "put": {
+        "tags": [
+          "Presentations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Presentation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Presentations": {
       "delete": {
         "tags": [
           "Presentations"
@@ -104,6 +137,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Presentations/GetPresentationSlides/{id}": {
+      "get": {
+        "tags": [
+          "Presentations"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

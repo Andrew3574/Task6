@@ -1,8 +1,10 @@
+using EditorAPP;
 using EditorAPP.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient();
 builder.Services.AddSession();
@@ -19,7 +21,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseSession();
-
+app.MapHub<PresentationHub>("presentationhub");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 

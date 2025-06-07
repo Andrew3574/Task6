@@ -11,11 +11,13 @@ namespace EditorAPI.Controllers
     {
         private readonly PresentationRepository _presentationRepository;
         private readonly PresentationSlideRepoitory _presentationSlideRepoitory;
+        private readonly ILogger<PresentationsController> _logger;
 
-        public PresentationsController(PresentationRepository presentationRepository, PresentationSlideRepoitory presentationSlideRepoitory)
+        public PresentationsController(PresentationRepository presentationRepository, PresentationSlideRepoitory presentationSlideRepoitory, ILogger<PresentationsController> logger)
         {
             _presentationRepository = presentationRepository;
             _presentationSlideRepoitory = presentationSlideRepoitory;
+            _logger = logger;
         }
 
         [HttpGet("GetByBatch/{batch:int}")]
@@ -44,8 +46,8 @@ namespace EditorAPI.Controllers
             }
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post(Presentation presentation)
+        [HttpPost("Create")]
+        public async Task<ActionResult> Create(Presentation presentation)
         {
             try
             {
@@ -54,6 +56,21 @@ namespace EditorAPI.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("Update")]
+        public async Task<ActionResult> Update([FromBody]Presentation presentation)
+        {
+            try
+            {
+                await _presentationRepository.Update(presentation);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Ошибка при обновлении презентации: " + ex.Message +"INNER:"+ex.InnerException);
                 return BadRequest(ex.Message);
             }
         }

@@ -1,39 +1,330 @@
-﻿@model Models.Presentation
+﻿@using Models
+@model Models.Presentation
 
 @{
     Layout = null;
+    int i = 1;
+    string username = Context.Session.GetString("username") ?? "Unknown";
+    var message = ViewData["PresentationMessage"];
 }
 
-<h1>Edit</h1>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .editor-container {
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: 250px 1fr 200px;
+        height: 100vh;
+        grid-template-areas:
+        "title toolbar users"
+        "slides workspace users";
+        transition: all 0.3s ease-in-out;
+        }
 
-<h4>Presentation</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+        .toolbar {
+        grid-area: toolbar;
+        padding: 10px;
+        background: #f8f9fa;
+        border-bottom: 1px solid #ccc;
+        }
+
+        .title{
+        grid-area:title;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-right: 1px solid #ccc;
+        }
+
+        .slides {
+        grid-area: slides;
+        overflow-y: auto;
+        background-color: #f1f1f1;
+        padding: 3vh 10px;
+        border-right: 1px solid #ccc;
+        }
+
+        .slides-container{
+        height:90%;
+        margin:5px;
+        overflow:auto;
+        }
+
+        #slide-canvas-wrapper {
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+        }
+
+        #slide-canvas {
+        transform-origin: center;
+        transition: transform 0.3s ease;
+        }
+
+        .workspace {
+        grid-area: workspace;
+        padding: 10px;
+        overflow: auto;
+        }
+
+        .workspace.expanded {
+        grid-column: span 2;
+        }
+
+        .users {
+        grid-area: users;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-left: 1px solid #ccc;
+        position: relative;
+        transition: transform 0.3s ease-in-out;
+        }
+
+        .users.collapsed {
+        transform: translateX(100%);
+        }
+
+        .toggle-users-btn {
+        position: absolute;
+        top: 10px;
+        left: -25px;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+        padding: 4px 8px;
+        cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    @if (message != null)
+    {
+        <div class="position-absolute alert-info align-content-center text-center">
+            @message.ToString();
+        </div>
+    }
+    <div class="editor-container">
+
+        <div class="toolbar d-flex align-items-center gap-2">
+            <input type="text" class="form-control w-50" placeholder="Text element..." />
+            <button class="btn btn-outline-secondary" onclick="zoomOut()">
+                <i class="fa-solid fa-search-minus"></i>
+            </button>
+            <button class="btn btn-outline-secondary" onclick="zoomIn()">
+                <i class="fa-solid fa-search-plus"></i>
+            </button>
+        </div>
+
+        <div class="title">
+            <h3>@Model.Title</h3>
+            <h5>Created by: @Model.Author</h5>
+        </div>
+
+        <div class="slides ">
+            <div class="slides-container">
+                @foreach (Sharedpresentationslide slide in Model.Sharedpresentationslides)
+                {
+                    <div class="card mb-2 slide-thumb" data-slide-id="@slide.Slideid">
+                        <div class="card-body p-2">
+                            <label class="float-lg-start">Slide #@i</label>
+                            <div style="cursor:pointer;background-color:@slide.Slide!.Background;height:80px;"></div>
+                    
+                        </div>
+                    </div>
+                    i++;
+                }
+
             </div>
-            <div class="form-group">
-                <label asp-for="Author" class="control-label"></label>
-                <input asp-for="Author" class="form-control" />
-                <span asp-validation-for="Author" class="text-danger"></span>
+            <a class="btn btn-primary mt-2" asp-action="Index">Back to List</a> 
+            <button class="btn btn-success mt-2" onclick="savePresentation()">Save</button>
+        </div>
+
+        <div class="workspace d-flex justify-content-center align-items-center">
+            <div id="slide-canvas-wrapper">
+                <div id="slide-canvas" class="position-relative" style="width:1000px; height:600px; background-color:white; border:1px solid #ccc;">
+                    <!-- Elements will be rendered here -->
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+        </div>
+
+        <div class="users" id="userPanel">
+            <div class="toggle-users-btn" onclick="toggleUserPanel()">
+                <i class="fa-solid fa-arrow-right"></i>
             </div>
-        </form>
+            <h6>Online Users:</h6>
+            <div id="userList"></div>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <script src="~/js/microsoft/signalr/dist/browser/signalr.min.js"></script>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <script>
+    const username = "@username";
+     let zoomLevel = 1.0;
+
+        function zoomIn() {
+            zoomLevel = Math.min(zoomLevel + 0.1, 2);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const canvas = document.getElementById('slide-canvas');
+            canvas.style.transform = `scale(${zoomLevel})`;
+        }
+
+    const slides = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+        Model.Sharedpresentationslides.Select(s => new {
+            slideId = s.Slideid,
+            background = s.Slide?.Background,
+            elements = s.Slide?.Sharedslideelements.Select(e => new {
+                id = e.Id,
+                x = e.ElementX,
+                y = e.ElementY,
+                width = e.ElementWidth,
+                height = e.ElementHeight,
+                content = e.ElementContent
+            })
+        })
+    ));
+
+
+    const connection = new signalR.HubConnectionBuilder()
+        .withUrl("/presentationHub")
+        .build();
+
+    connection.on("UserListUpdated", function (users) {
+        const list = document.getElementById("userList");
+        list.innerHTML = '';
+        users.forEach(user => {
+            const li = document.createElement("li");
+            li.className = 'form-label p-2';
+            li.textContent = user;
+            list.appendChild(li);
+        });
+    });
+
+    connection.on("OnElementChanged", (slideId, index, newContent) => {
+        const slide = slides.find(s => s.slideId === slideId);
+        if (!slide) return;
+
+        slide.elements[index].content = newContent;
+        const canvas = document.getElementById('slide-canvas');
+        const div = canvas.querySelector(`[data-element-index="${index}"][data-slide-id="${slideId}"]`);
+        if (div) {
+            div.innerText = newContent;
+        }
+    });
+
+    connection.start()
+    .then(() => {
+            connection.invoke("JoinSession", @Model.Id, "@username");
+    })
+    .catch(err => console.error(err.toString()));
+
+    document.querySelectorAll('.slide-thumb').forEach(item => {
+        item.addEventListener('click', () => {
+            const slideId = parseInt(item.getAttribute('data-slide-id'));
+            const slide = slides.find(s => s.slideId === slideId);
+            if (slide) renderSlideElements(slide);
+        });
+    });
+
+       function savePresentation() {
+            const presentation = {
+                id: @Model.Id, // можно оставить Razor для id, он обычно не меняется
+                title: document.querySelector("#presentation-title")?.innerText ?? "@Model.Title", // если заголовок редактируемый
+                author: "@Model.Author", // или другой актуальный способ получения
+                sharedpresentationslides: slides.map(slide => ({
+                    slideid: slide.slideId,
+                    slide: {
+                        background: slide.background,
+                        sharedslideelements: slide.elements.map(el => ({
+                        id: el.id,
+                        elementX: el.x,
+                        elementY: el.y,
+                        elementWidth: el.width,
+                        elementHeight: el.height,
+                        elementContent: el.content
+                    }))
+                    },
+                    
+                }))
+            };
+
+            fetch('/Presentations/Save', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(presentation)
+            }).then(res => {
+                if (res.ok) alert("Changes saved.");
+                else alert("Failed to save.");
+            }).catch(err => {
+                console.error(err);
+                alert("Error saving.");
+            });
+        }
+
+
+    function renderSlideElements(slide) {
+        const canvas = document.getElementById('slide-canvas');
+        canvas.innerHTML = "";
+        canvas.style.backgroundColor = slide.background || "white";
+
+        slide.elements.forEach((el, index) => {
+            const div = document.createElement('div');
+            div.classList.add('position-absolute', 'border', 'p-1');
+            div.contentEditable = true;
+            div.dataset.elementIndex = index;
+            div.dataset.slideId = slide.slideId;
+
+            div.style.left = el.x + 'px';
+            div.style.top = el.y + 'px';
+            div.style.width = el.width + 'px';
+            div.style.height = el.height + 'px';
+            div.style.backgroundColor = 'lightyellow';
+            div.style.overflow = 'hidden';
+            div.innerText = el.content;
+
+            div.addEventListener('input', () => {
+                const updatedContent = div.innerText;
+                connection.invoke("OnElementChanged", slide.slideId, index, updatedContent);
+                slide.elements[index].content = updatedContent;
+            });
+
+            canvas.appendChild(div);
+        });
+    }
+
+
+    if (slides.length > 0) {
+        renderSlideElements(slides[0]);
+    }
+
+    function toggleUserPanel() {
+        const panel = document.getElementById('userPanel');
+        const workspace = document.getElementById('workspace');
+        const icon = document.getElementById('toggle-icon');
+
+        panel.classList.toggle('collapsed');
+        workspace.classList.toggle('expanded');
+
+        if (panel.classList.contains('collapsed')) {
+            icon.classList.remove('fa-arrow-right');
+            icon.classList.add('fa-arrow-left');
+        } else {
+            icon.classList.remove('fa-arrow-left');
+            icon.classList.add('fa-arrow-right');
+        }
+    }
+
+</script>
+</body>

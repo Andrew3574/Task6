@@ -13,6 +13,5 @@ public partial class Presentation
 
     public virtual ICollection<Sharedpresentationslide> Sharedpresentationslides { get; set; } = new List<Sharedpresentationslide>();
 
-    public string[]? Contributors { get; set; }
 
 }

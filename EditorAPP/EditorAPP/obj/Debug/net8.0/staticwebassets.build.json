@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "1oEHm2cvdrw9ekbXq/n0FtZKBew6+FZ9XtdwCCblKY0=",
+  "Hash": "X7lnh7nDwe46N2W59ygO36e3l+u77sMUUAYnD90G/SE=",
   "Source": "EditorAPP",
   "BasePath": "_content/EditorAPP",
   "Mode": "Default",
@@ -99,6 +99,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "EditorAPP",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\",
+      "BasePath": "_content/EditorAPP",
+      "RelativePath": "js/microsoft/signalr/dist/browser/signalr.min#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "m3i9f6419i",
+      "Integrity": "4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
     },
     {
       "Identity": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\site.js",
@@ -1645,6 +1666,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "js/microsoft/signalr/dist/browser/signalr.min.js",
+      "AssetFile": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 07 Jun 2025 12:31:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
+        }
+      ]
+    },
+    {
+      "Route": "js/microsoft/signalr/dist/browser/signalr.min.m3i9f6419i.js",
+      "AssetFile": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "47647"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 07 Jun 2025 12:31:51 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "m3i9f6419i"
+        },
+        {
+          "Name": "label",
+          "Value": "js/microsoft/signalr/dist/browser/signalr.min.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-4opyCjWbN8sBV1jVQ/kIcw7Vu+R42wlQa7aIfxgxNTg="
         }
       ]
     },

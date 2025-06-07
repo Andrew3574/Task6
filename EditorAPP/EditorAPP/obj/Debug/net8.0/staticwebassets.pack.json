@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "PackagePath": "staticwebassets\\js\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
+    },
+    {
       "Id": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

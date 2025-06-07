@@ -1,9 +1,9 @@
 [
   {
     "ContainingType": "EditorAPI.Controllers.PresentationsController",
-    "Method": "Post",
+    "Method": "Delete",
     "RelativePath": "api/Presentations",
-    "HttpMethod": "POST",
+    "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -17,9 +17,9 @@
   },
   {
     "ContainingType": "EditorAPI.Controllers.PresentationsController",
-    "Method": "Delete",
-    "RelativePath": "api/Presentations",
-    "HttpMethod": "DELETE",
+    "Method": "Create",
+    "RelativePath": "api/Presentations/Create",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
@@ -58,6 +58,38 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "GetPresentationSlides",
+    "RelativePath": "api/Presentations/GetPresentationSlides/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "Update",
+    "RelativePath": "api/Presentations/Update",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "presentation",
+        "Type": "Models.Presentation",
         "IsRequired": true
       }
     ],

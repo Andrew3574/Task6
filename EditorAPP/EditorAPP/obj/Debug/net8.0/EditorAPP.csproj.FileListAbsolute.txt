@@ -243,3 +243,5 @@ D:\SummerCourse\task6\EditorAPP\EditorAPP\obj\Debug\net8.0\refint\EditorAPP.dll
 D:\SummerCourse\task6\EditorAPP\EditorAPP\obj\Debug\net8.0\EditorAPP.pdb
 D:\SummerCourse\task6\EditorAPP\EditorAPP\obj\Debug\net8.0\EditorAPP.genruntimeconfig.cache
 D:\SummerCourse\task6\EditorAPP\EditorAPP\obj\Debug\net8.0\ref\EditorAPP.dll
+D:\SummerCourse\task6\EditorAPP\EditorAPP\bin\Debug\net8.0\libman.json
+D:\SummerCourse\task6\EditorAPP\EditorAPP\obj\Debug\net8.0\EditorAPP.sourcelink.json
