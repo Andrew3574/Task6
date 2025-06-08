@@ -3,7 +3,7 @@ using EditorAPP.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-builder.WebHost.UseUrls("http://localhost:5527");
+builder.WebHost.UseUrls("http://0.0.0.0:5527");
 // Add services to the container.
 builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews();
@@ -23,7 +23,6 @@ if (!app.Environment.IsDevelopment())
 
 app.UseSession();
 app.MapHub<PresentationHub>("presentationhub");
-app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

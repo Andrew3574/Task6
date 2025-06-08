@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EditorAPP")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7609165e901c8d45f507356fbb94fc7c08b30d1f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9f497c646c13cf7492ef0454c339eb18195bb558")]
 [assembly: System.Reflection.AssemblyProductAttribute("EditorAPP")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EditorAPP")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

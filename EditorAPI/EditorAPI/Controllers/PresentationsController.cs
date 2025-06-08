@@ -104,7 +104,7 @@ namespace EditorAPI.Controllers
         }
 
         [HttpPost("AddSlide/{presentationId:int}")]
-        public async Task<IActionResult> AddSlide([FromBody] Slide newSlide, [FromQuery] int presentationId)
+        public async Task<IActionResult> AddSlide([FromBody] Slide newSlide, int presentationId)
         {
             await _presentationRepository.CreateSlide(newSlide);
             Sharedpresentationslide sharedSlide = new Sharedpresentationslide
