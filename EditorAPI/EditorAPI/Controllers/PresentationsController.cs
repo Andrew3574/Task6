@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Models;
 using Repositories;
 
@@ -100,6 +101,24 @@ namespace EditorAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpPost("AddSlide/{presentationId:int}")]
+        public async Task<IActionResult> AddSlide([FromBody] Slide newSlide, [FromQuery] int presentationId)
+        {
+            await _presentationRepository.CreateSlide(newSlide);
+            Sharedpresentationslide sharedSlide = new Sharedpresentationslide
+            {
+                Presentationid = presentationId,
+                Slideid = newSlide.Id
+            };
+            await _presentationSlideRepoitory.Create(sharedSlide);
+            return Ok(new
+            {
+                slideId = sharedSlide.Slideid,
+                background = newSlide.Background,
+                elements = new List<object>() 
+            });
         }
     }
 }

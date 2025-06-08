@@ -9,7 +9,7 @@ public partial class Sharedslideelement
 
     public int? Slideid { get; set; }
 
-    public int? Elementid { get; set; }
+    public int? Elementid { get; set; } = 1;
 
     public int? ElementX { get; set; }
 

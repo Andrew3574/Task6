@@ -17,6 +17,32 @@
   },
   {
     "ContainingType": "EditorAPI.Controllers.PresentationsController",
+    "Method": "AddSlide",
+    "RelativePath": "api/Presentations/AddSlide/{presentationId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newSlide",
+        "Type": "Models.Slide",
+        "IsRequired": true
+      },
+      {
+        "Name": "presentationId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "presentationId",
+        "Type": "",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EditorAPI.Controllers.PresentationsController",
     "Method": "Create",
     "RelativePath": "api/Presentations/Create",
     "HttpMethod": "POST",

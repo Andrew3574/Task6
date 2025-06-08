@@ -13,87 +13,91 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
     <style>
         .editor-container {
-        display: grid;
-        grid-template-rows: auto 1fr;
-        grid-template-columns: 250px 1fr 200px;
-        height: 100vh;
-        grid-template-areas:
-        "title toolbar users"
-        "slides workspace users";
-        transition: all 0.3s ease-in-out;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            grid-template-columns: 250px 1fr 200px;
+            height: 100vh;
+            grid-template-areas:
+                "title toolbar users"
+                "slides workspace users";
+            transition: all 0.3s ease-in-out;
         }
 
         .toolbar {
-        grid-area: toolbar;
-        padding: 10px;
-        background: #f8f9fa;
-        border-bottom: 1px solid #ccc;
+            grid-area: toolbar;
+            padding: 10px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #ccc;
         }
 
-        .title{
-        grid-area:title;
-        padding: 10px;
-        background-color: #f1f1f1;
-        border-right: 1px solid #ccc;
+        .title {
+            grid-area: title;
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-right: 1px solid #ccc;
         }
 
         .slides {
-        grid-area: slides;
-        overflow-y: auto;
-        background-color: #f1f1f1;
-        padding: 3vh 10px;
-        border-right: 1px solid #ccc;
+            grid-area: slides;
+            overflow-y: auto;
+            background-color: #f1f1f1;
+            padding: 3vh 10px;
+            border-right: 1px solid #ccc;
         }
 
-        .slides-container{
-        height:90%;
-        margin:5px;
-        overflow:auto;
+        .card:hover {
+            background-color: aliceblue;
+        }
+
+        .slides-container {
+            height: 80%;
+            margin: 5px;
+            overflow: auto;
         }
 
         #slide-canvas-wrapper {
-        overflow: auto;
-        width: 100%;
-        height: 100%;
+            overflow: auto;
+            width: 100%;
+            height: 100%;
         }
 
         #slide-canvas {
-        transform-origin: center;
-        transition: transform 0.3s ease;
+            transform-origin: center;
+            transition: transform 0.3s ease;
         }
 
         .workspace {
-        grid-area: workspace;
-        padding: 10px;
-        overflow: auto;
+            grid-area: workspace;
+            padding: 10px;
+            overflow: auto;
         }
 
-        .workspace.expanded {
-        grid-column: span 2;
-        }
+            .workspace.expanded {
+                grid-column: span 2;
+            }
 
         .users {
-        grid-area: users;
-        padding: 10px;
-        background-color: #f8f9fa;
-        border-left: 1px solid #ccc;
-        position: relative;
-        transition: transform 0.3s ease-in-out;
+            grid-area: users;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 1px solid #ccc;
+            position: relative;
+            transition: transform 0.3s ease-in-out;
         }
 
-        .users.collapsed {
-        transform: translateX(100%);
-        }
+            .users.collapsed {
+                transform: translateX(100%);
+            }
 
         .toggle-users-btn {
-        position: absolute;
-        top: 10px;
-        left: -25px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px 0 0 5px;
-        padding: 4px 8px;
-        cursor: pointer;
+            position: absolute;
+            top: 10px;
+            left: -25px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+            padding: 4px 8px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -108,7 +112,9 @@
     <div class="editor-container">
 
         <div class="toolbar d-flex align-items-center gap-2">
-            <input type="text" class="form-control w-50" placeholder="Text element..." />
+            <div id="text-element" draggable="true" class="p-2 border rounded bg-light" style="cursor: grab;">
+                Text element...
+            </div>
             <button class="btn btn-outline-secondary" onclick="zoomOut()">
                 <i class="fa-solid fa-search-minus"></i>
             </button>
@@ -117,34 +123,45 @@
             </button>
         </div>
 
+
         <div class="title">
             <h3>@Model.Title</h3>
             <h5>Created by: @Model.Author</h5>
         </div>
 
         <div class="slides ">
+            <div class="d-flex justify-content-between p-" onclick="addNewSlide()">
+                <button class="btn btn-outline-primary">
+                    Add Slide<i class="fas fa-plus"></i>
+                </button>
+                <button class="btn btn-outline-danger p-2" onclick="deleteCurrentSlide()">
+                    Delete <i class="fas fa-trash-can"></i>
+                </button>
+            </div>
             <div class="slides-container">
                 @foreach (Sharedpresentationslide slide in Model.Sharedpresentationslides)
                 {
                     <div class="card mb-2 slide-thumb" data-slide-id="@slide.Slideid">
                         <div class="card-body p-2">
-                            <label class="float-lg-start">Slide #@i</label>
-                            <div style="cursor:pointer;background-color:@slide.Slide!.Background;height:80px;"></div>
-                    
+                            <label class="float-lg-start text-muted">Slide #@i</label>
+                            <div style="cursor:pointer;background-color:@slide.Slide!.Background;height:80px; border-radius:5px;"></div>
+
                         </div>
                     </div>
                     i++;
                 }
 
             </div>
-            <a class="btn btn-primary mt-2" asp-action="Index">Back to List</a> 
-            <button class="btn btn-success mt-2" onclick="savePresentation()">Save</button>
+            <div class="d-flex justify-content-between p-2">
+                <a class="btn btn-outline-primary " asp-action="Index">Back to List</a>
+                <button class="btn btn-success " onclick="savePresentation()">Save</button>
+            </div>
         </div>
 
         <div class="workspace d-flex justify-content-center align-items-center">
             <div id="slide-canvas-wrapper">
                 <div id="slide-canvas" class="position-relative" style="width:1000px; height:600px; background-color:white; border:1px solid #ccc;">
-                    <!-- Elements will be rendered here -->
+                    <!-- render elements -->
                 </div>
             </div>
         </div>
@@ -161,170 +178,321 @@
     <script src="~/js/microsoft/signalr/dist/browser/signalr.min.js"></script>
 
     <script>
-    const username = "@username";
-     let zoomLevel = 1.0;
+            let currentSlideId = null;
 
-        function zoomIn() {
-            zoomLevel = Math.min(zoomLevel + 0.1, 2);
-            applyZoom();
-        }
 
-        function zoomOut() {
-            zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
-            applyZoom();
-        }
+            const username = "@username";
+            let zoomLevel = 1.0;
 
-        function applyZoom() {
-            const canvas = document.getElementById('slide-canvas');
-            canvas.style.transform = `scale(${zoomLevel})`;
-        }
+            function zoomIn() {
+                zoomLevel = Math.min(zoomLevel + 0.1, 2);
+                applyZoom();
+            }
 
-    const slides = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
-        Model.Sharedpresentationslides.Select(s => new {
-            slideId = s.Slideid,
-            background = s.Slide?.Background,
-            elements = s.Slide?.Sharedslideelements.Select(e => new {
-                id = e.Id,
-                x = e.ElementX,
-                y = e.ElementY,
-                width = e.ElementWidth,
-                height = e.ElementHeight,
-                content = e.ElementContent
+            function zoomOut() {
+                zoomLevel = Math.max(zoomLevel - 0.1, 0.5);
+                applyZoom();
+            }
+
+            function applyZoom() {
+                const canvas = document.getElementById('slide-canvas');
+                canvas.style.transform = `scale(${zoomLevel})`;
+            }
+
+        const slides = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(
+            Model.Sharedpresentationslides.Select(s => new
+            {
+                slideId = s.Slideid,
+                background = s.Slide?.Background,
+                elements = s.Slide?.Sharedslideelements.Select(e => new
+                {
+                  id = e.Id,
+                  elementid = e.Elementid,
+                  slideid = e.Slideid,
+                  x = e.ElementX,
+                  y = e.ElementY,
+                  width = e.ElementWidth,
+                  height = e.ElementHeight,
+                  content = e.ElementContent
+                })
             })
-        })
-    ));
+        ));
 
+            if (slides.length > 0) {
+                    currentSlideId = slides[0].slideId;
+                    renderSlideElements(slides[0]);
+                }
 
-    const connection = new signalR.HubConnectionBuilder()
-        .withUrl("/presentationHub")
-        .build();
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/presentationHub")
+            .build();
 
-    connection.on("UserListUpdated", function (users) {
-        const list = document.getElementById("userList");
-        list.innerHTML = '';
-        users.forEach(user => {
-            const li = document.createElement("li");
-            li.className = 'form-label p-2';
-            li.textContent = user;
-            list.appendChild(li);
+        connection.on("UserListUpdated", function (users) {
+            const list = document.getElementById("userList");
+            list.innerHTML = '';
+            users.forEach(user => {
+                const li = document.createElement("li");
+                li.className = 'form-label p-2';
+                li.textContent = user;
+                list.appendChild(li);
+            });
         });
-    });
 
-    connection.on("OnElementChanged", (slideId, index, newContent) => {
-        const slide = slides.find(s => s.slideId === slideId);
-        if (!slide) return;
-
-        slide.elements[index].content = newContent;
-        const canvas = document.getElementById('slide-canvas');
-        const div = canvas.querySelector(`[data-element-index="${index}"][data-slide-id="${slideId}"]`);
-        if (div) {
-            div.innerText = newContent;
-        }
-    });
-
-    connection.start()
-    .then(() => {
-            connection.invoke("JoinSession", @Model.Id, "@username");
-    })
-    .catch(err => console.error(err.toString()));
-
-    document.querySelectorAll('.slide-thumb').forEach(item => {
-        item.addEventListener('click', () => {
-            const slideId = parseInt(item.getAttribute('data-slide-id'));
+        connection.on("OnElementChanged", (slideId, index, newContent) => {
             const slide = slides.find(s => s.slideId === slideId);
-            if (slide) renderSlideElements(slide);
-        });
-    });
+            if (!slide) return;
 
-       function savePresentation() {
-            const presentation = {
-                id: @Model.Id, // можно оставить Razor для id, он обычно не меняется
-                title: document.querySelector("#presentation-title")?.innerText ?? "@Model.Title", // если заголовок редактируемый
-                author: "@Model.Author", // или другой актуальный способ получения
-                sharedpresentationslides: slides.map(slide => ({
-                    slideid: slide.slideId,
-                    slide: {
-                        background: slide.background,
-                        sharedslideelements: slide.elements.map(el => ({
-                        id: el.id,
-                        elementX: el.x,
-                        elementY: el.y,
-                        elementWidth: el.width,
-                        elementHeight: el.height,
-                        elementContent: el.content
-                    }))
+            slide.elements[index].content = newContent;
+            const canvas = document.getElementById('slide-canvas');
+            const div = canvas.querySelector(`[data-element-index="${index}"][data-slide-id="${slideId}"]`);
+            if (div) {
+                div.innerText = newContent;
+            }
+        });
+
+        connection.on("OnSlideAdded", (newSlide) => {
+            slides.push(newSlide);
+            renderSlideThumbnails();
+        });
+
+        connection.on("OnSlideRemoved", (slideId) => {
+            const index = slides.findIndex(s => s.slideId === slideId);
+            if (index !== -1) {
+                slides.splice(index, 1);
+                renderSlideThumbnails();
+            }
+        });
+                connection.on("OnElementAdded", (slideId, element) => {
+            const slide = slides.find(s => s.slideId === slideId);
+            if (!slide) return;
+
+            slide.elements.push(element);
+            if (slideId === currentSlideId) {
+                renderSlideElements(slide);
+            }
+        });
+
+        connection.start()
+            .then(() => {
+                connection.invoke("JoinSession", @Model.Id, "@username");
+
+                if (slides.length > 0) {
+                    currentSlideId = slides[0].slideId;
+                    renderSlideThumbnails();
+                    renderSlideElements(slides[0]);
+                }
+            })
+            .catch(err => console.error(err.toString()));
+
+
+                function addNewSlide() {
+                const newSlide = {
+                    background: "white",
+                    sharedslideelements: []
+                };
+
+                const presentationId = @Model.Id;
+
+                fetch(`/Presentations/AddSlide?presentationId=${presentationId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
                     },
-                    
-                }))
-            };
+                    body: JSON.stringify(newSlide)
+                })
+                .then(response => {
+                    if (!response.ok) throw new Error("Failed to save new slide");
+                    return response.json();
+                })
+                .then(savedSlide => {
+                    slides.push(savedSlide);
+                    currentSlideId = savedSlide.slideId;
+                    renderSlideThumbnails();
+                    renderSlideElements(savedSlide);
 
-            fetch('/Presentations/Save', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(presentation)
-            }).then(res => {
-                if (res.ok) alert("Changes saved.");
-                else alert("Failed to save.");
-            }).catch(err => {
-                console.error(err);
-                alert("Error saving.");
-            });
+                    // Уведомляем других пользователей
+                    connection.invoke("AddSlideEvent", savedSlide);
+                })
+            }
+
+
+
+
+        function deleteCurrentSlide() {
+            if (slides.length === 0 || currentSlideId === null) return;
+
+            const index = slides.findIndex(s => s.slideId === currentSlideId);
+            if (index === -1) return;
+
+            const removedSlideId = slides[index].slideId;
+            slides.splice(index, 1);
+
+            if (slides.length > 0) {
+                const nextSlide = slides[Math.max(0, index - 1)];
+                currentSlideId = nextSlide.slideId;
+                renderSlideElements(nextSlide);
+            } else {
+                currentSlideId = null;
+                document.getElementById('slide-canvas').innerHTML = "";
+            }
+
+            renderSlideThumbnails();
+            connection.invoke("RemoveSlideEvent", removedSlideId)
+                .catch(err => console.error(err));
         }
 
 
-    function renderSlideElements(slide) {
-        const canvas = document.getElementById('slide-canvas');
-        canvas.innerHTML = "";
-        canvas.style.backgroundColor = slide.background || "white";
+        function renderSlideThumbnails() {
+            const container = document.querySelector(".slides-container");
+            container.innerHTML = "";
+            let i = 1;
 
-        slide.elements.forEach((el, index) => {
-            const div = document.createElement('div');
-            div.classList.add('position-absolute', 'border', 'p-1');
-            div.contentEditable = true;
-            div.dataset.elementIndex = index;
-            div.dataset.slideId = slide.slideId;
+            slides.forEach(slide => {
+                const card = document.createElement("div");
+                card.className = "card mb-2 slide-thumb";
+                card.dataset.slideId = slide.slideId;
 
-            div.style.left = el.x + 'px';
-            div.style.top = el.y + 'px';
-            div.style.width = el.width + 'px';
-            div.style.height = el.height + 'px';
-            div.style.backgroundColor = 'lightyellow';
-            div.style.overflow = 'hidden';
-            div.innerText = el.content;
+                card.innerHTML = `
+                    <div class="card-body p-2">
+                        <label class="float-lg-start text-muted">Slide #${i++}</label>
+                        <div style="cursor:pointer;background-color:${slide.background};height:80px; border-radius:5px;"></div>
+                    </div>
+                `;
 
-            div.addEventListener('input', () => {
-                const updatedContent = div.innerText;
-                connection.invoke("OnElementChanged", slide.slideId, index, updatedContent);
-                slide.elements[index].content = updatedContent;
+                card.addEventListener("click", () => {
+                    currentSlideId = slide.slideId;
+                    renderSlideElements(slide);
+                });
+
+                container.appendChild(card);
             });
+        }
 
-            canvas.appendChild(div);
+           function savePresentation() {
+                const presentation = {
+                    id: @Model.Id,
+                    title: document.querySelector("#presentation-title")?.innerText ?? "@Model.Title",
+                    author: "@Model.Author",
+                    sharedpresentationslides: slides.map(slide => ({
+                        slideid: slide.slideId,
+                        slide: {
+                            background: slide.background,
+                            sharedslideelements: slide.elements.map(el => ({
+                            id: el.id,
+                            elementid: 1,
+                            slideid: el.slideid,
+                            elementX: el.x,
+                            elementY: el.y,
+                            elementWidth: el.width,
+                            elementHeight: el.height,
+                            elementContent: el.content
+                        }))
+                        },
+
+                    }))
+                };
+                console.log(JSON.stringify(presentation));
+                fetch('/Presentations/Save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(presentation)
+                }).then(res => {
+                    if (res.ok) alert("Changes saved.");
+                    else alert("Failed to save.");
+                }).catch(err => {
+                    console.error(err);
+                    alert("Error saving.");
+                });
+            }
+                    let draggedElementType = null;
+
+        document.getElementById('text-element').addEventListener('dragstart', function (e) {
+            draggedElementType = 'text';
         });
-    }
+
+        const canvasWrapper = document.getElementById('slide-canvas-wrapper');
+
+        canvasWrapper.addEventListener('dragover', function (e) {
+            e.preventDefault();
+        });
+
+        canvasWrapper.addEventListener('drop', function (e) {
+            if (draggedElementType === 'text' && currentSlideId) {
+                const canvasRect = document.getElementById('slide-canvas').getBoundingClientRect();
+                const x = e.clientX - canvasRect.left;
+                const y = e.clientY - canvasRect.top;
+
+                const newElement = {
+                    id: Math.floor(Date.now() / 1000),
+                    elementid: 1,
+                    slideid: currentSlideId,
+                    x: Math.round(x),
+                    y: Math.round(y),
+                    width: 150,
+                    height: 40,
+                    content: "Text"
+                };
+
+                const slide = slides.find(s => s.slideId === currentSlideId);
+                slide.elements.push(newElement);
+                renderSlideElements(slide);
+
+                connection.invoke("AddElementEvent", currentSlideId, newElement);
+            }
+        });
 
 
-    if (slides.length > 0) {
-        renderSlideElements(slides[0]);
-    }
+        function renderSlideElements(slide) {
+            const canvas = document.getElementById('slide-canvas');
+            canvas.innerHTML = "";
+            canvas.style.backgroundColor = slide.background || "white";
 
-    function toggleUserPanel() {
-        const panel = document.getElementById('userPanel');
-        const workspace = document.getElementById('workspace');
-        const icon = document.getElementById('toggle-icon');
+            slide.elements.forEach((el, index) => {
+                const div = document.createElement('div');
+                div.classList.add('position-absolute', 'border', 'p-1');
+                div.contentEditable = true;
+                div.dataset.elementIndex = index;
+                div.dataset.slideId = slide.slideId;
 
-        panel.classList.toggle('collapsed');
-        workspace.classList.toggle('expanded');
+                div.style.left = el.x + 'px';
+                div.style.top = el.y + 'px';
+                div.style.width = el.width + 'px';
+                div.style.height = el.height + 'px';
+                div.style.backgroundColor = 'lightyellow';
+                div.style.overflow = 'hidden';
+                div.innerText = el.content;
 
-        if (panel.classList.contains('collapsed')) {
-            icon.classList.remove('fa-arrow-right');
-            icon.classList.add('fa-arrow-left');
-        } else {
-            icon.classList.remove('fa-arrow-left');
-            icon.classList.add('fa-arrow-right');
+                div.addEventListener('input', () => {
+                    const updatedContent = div.innerText;
+                    connection.invoke("OnElementChanged", slide.slideId, index, updatedContent);
+                    slide.elements[index].content = updatedContent;
+                });
+
+                canvas.appendChild(div);
+            });
         }
-    }
 
-</script>
+
+
+        function toggleUserPanel() {
+            const panel = document.getElementById('userPanel');
+            const workspace = document.getElementById('workspace');
+            const icon = document.getElementById('toggle-icon');
+
+            panel.classList.toggle('collapsed');
+            workspace.classList.toggle('expanded');
+
+            if (panel.classList.contains('collapsed')) {
+                icon.classList.remove('fa-arrow-right');
+                icon.classList.add('fa-arrow-left');
+            } else {
+                icon.classList.remove('fa-arrow-left');
+                icon.classList.add('fa-arrow-right');
+            }
+        }
+
+    </script>
 </body>
+

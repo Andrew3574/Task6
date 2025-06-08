@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR;
+using Models;
 
 namespace EditorAPP
 {
@@ -23,6 +24,21 @@ namespace EditorAPP
             Context.Items["presentationId"] = presentationId;
             Context.Items["username"] = username;
 
+        }
+
+        public async Task AddSlideEvent(Slide newSlide)
+        {
+            await Clients.Others.SendAsync("OnSlideAdded", newSlide);
+        }
+
+        public async Task RemoveSlideEvent(int slideId)
+        {
+            await Clients.Others.SendAsync("OnSlideRemoved", slideId);
+        }
+
+        public async Task AddElementEvent(int slideId, object element)
+        {
+            await Clients.Others.SendAsync("OnElementAdded", slideId, element);
         }
 
         public async Task OnElementChanged(int slideId, int elementIndex, string newContent)

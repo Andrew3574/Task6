@@ -13,6 +13,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["EditorAPI/EditorAPI.csproj", "EditorAPI/"]
+COPY ["Models/Models.csproj", "Models/"]
+COPY ["Repositories/Repositories.csproj", "Repositories/"]
 RUN dotnet restore "./EditorAPI/EditorAPI.csproj"
 COPY . .
 WORKDIR "/src/EditorAPI"

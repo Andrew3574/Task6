@@ -75,8 +75,15 @@ namespace Repositories
             }
             else
             {
+                updatedElement.Id = 0;
                 existingSlide.Sharedslideelements.Add(updatedElement);
             }
+        }
+
+        public async Task CreateSlide(Slide slide)
+        {
+            _context.Slides.Add(slide);
+            await _context.SaveChangesAsync();
         }
 
 

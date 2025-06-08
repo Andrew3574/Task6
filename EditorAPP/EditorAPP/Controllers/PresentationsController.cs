@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using EditorAPP.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -31,27 +32,29 @@ namespace EditorAPP.Controllers
             return View(presentation);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="presentation"></param>
-        /// <returns></returns>
-        [HttpPost]
         public async Task<IActionResult> Create(Presentation presentation)
         {
+            presentation.Author = HttpContext.Session.GetString("username") ?? "Unknown";
+            presentation.Title = "Title:"+presentation.Author;
             var response = await _httpClient.PostAsJsonAsync($"Presentations/Create", presentation);
             if (response.IsSuccessStatusCode)
             {
                 ViewData["CreateMessage"] = "Presentation created successfully.";
-                return View("Index");
+                return RedirectToAction("Index");
             }
             ViewData["CreateMessage"] = "Creating error occured";
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         public async Task<JsonResult> LoadMore()
         {
             var presentations = await _httpClient.GetFromJsonAsync<IEnumerable<Presentation>>($"Presentations/GetByBatch/{++_batch}");
+            return Json(presentations);
+        }
+        [HttpPost]
+        public async Task<JsonResult> AddSlide([FromBody]Slide newSlide, [FromQuery] int presentationId)
+        {
+            var presentations = await _httpClient.PostAsJsonAsync($"Presentations/AddSlide/{presentationId}", newSlide);
             return Json(presentations);
         }
 

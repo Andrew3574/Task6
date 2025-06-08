@@ -1,8 +1,9 @@
 using EditorAPP;
 using EditorAPP.Services;
 
-var builder = WebApplication.CreateBuilder(args);
 
+var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.UseUrls("http://localhost:5527");
 // Add services to the container.
 builder.Services.AddSignalR();
 builder.Services.AddControllersWithViews();
