@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\SummerCourse\\task6\\EditorAPP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3BDFF7F3-85F8-404C-B732-4A34DCCAB761}|EditorAPP\\EditorAPP.csproj|d:\\summercourse\\task6\\editorapp\\editorapp\\services\\httpclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BDFF7F3-85F8-404C-B732-4A34DCCAB761}|EditorAPP\\EditorAPP.csproj|solutionrelative:editorapp\\services\\httpclientservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3BDFF7F3-85F8-404C-B732-4A34DCCAB761}|EditorAPP\\EditorAPP.csproj|d:\\summercourse\\task6\\editorapp\\editorapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{3BDFF7F3-85F8-404C-B732-4A34DCCAB761}|EditorAPP\\EditorAPP.csproj|solutionrelative:editorapp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -31,6 +35,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "HttpClientService.cs",
+              "DocumentMoniker": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\Services\\HttpClientService.cs",
+              "RelativeDocumentMoniker": "EditorAPP\\Services\\HttpClientService.cs",
+              "ToolTip": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\Services\\HttpClientService.cs",
+              "RelativeToolTip": "EditorAPP\\Services\\HttpClientService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-14T15:15:07.706Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\appsettings.json",
               "RelativeDocumentMoniker": "EditorAPP\\appsettings.json",
@@ -43,7 +60,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\SummerCourse\\task6\\EditorAPP\\EditorAPP\\Program.cs",
               "RelativeDocumentMoniker": "EditorAPP\\Program.cs",
@@ -51,8 +68,7 @@
               "RelativeToolTip": "EditorAPP\\Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-06-08T18:42:17.645Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-06-08T18:42:17.645Z"
             }
           ]
         },
