@@ -14,10 +14,12 @@ namespace Repositories
         {
             _context = context;
         }
+        protected void Send(){System.Console.WriteLine("feature2 test");}
         public abstract Task<IEnumerable<T>> GetAll();
         public abstract Task Create(T entity);
         public abstract Task Update(T entity);
         public abstract Task Delete(T entity);
+        
         protected void Send(){System.Console.WriteLine("feature test");}
     }
 }
