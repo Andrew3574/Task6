@@ -18,7 +18,6 @@ namespace Repositories
         public abstract Task Create(T entity);
         public abstract Task Update(T entity);
         public abstract Task Delete(T entity);
-        protected void Send(){System.Console.WriteLine("test2");}
         protected void Send(){System.Console.WriteLine("feature test");}
     }
 }
